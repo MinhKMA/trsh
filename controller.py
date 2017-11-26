@@ -34,41 +34,37 @@ def handle(msg):
             host = str(args[1])
             output = os.popen("ping -c1 "+host).read()
             bot.sendMessage(chat_id, output)
-
-        if command == '/mtr':
+        elif command == '/mtr':
             host = str(args[1])
-            output=os.popen("mtr --report "+host).read()
+            output = os.popen("mtr --report "+host).read()
             bot.sendMessage(chat_id, output)
-
-        if command == '/nmap':
+        elif command == '/nmap':
             value = str(args[1])
             host = str(args[2])
             output = os.popen("nmap -A "+value+" "+host).read()
             bot.sendMessage(chat_id, output)
-
-        if command == '/curl':
+        elif command == '/curl':
             host = str(args[1])
             output = os.popen("curl -Iv "+host).read()
             bot.sendMessage(chat_id, output)
-
-        if command == '/dig':
+        elif command == '/dig':
             type = str(args[1])
             host = str(args[2])
             output = os.popen("dig +short "+type+" "+host).read()
             bot.sendMessage(chat_id, output)
-
-        if command == '/whois':
+        elif command == '/whois':
             host = str(args[1])
             output = os.popen("whois "+host).read()
             bot.sendMessage(chat_id, output)
-
-        if command == '/sysinfo':
+        elif command == '/sysinfo':
             output = os.popen("df -h && free -m && netstat -tunlp").read()
             bot.sendMessage(chat_id, output)
-
-        if command == '/sh':
+        elif command == '/sh':
             cmd = str(args[1])
             output = os.popen(cmd).read()
+            bot.sendMessage(chat_id, output)
+        else:
+            output = 'Sorry, we do not still support your command'
             bot.sendMessage(chat_id, output)
 
 bot = telepot.Bot(TG_BOT_TOKEN)
