@@ -2,13 +2,20 @@
 # Author: Sami Yessou - samiii@protonmail.com
 # Telegram Remote-Shell
 # Control your Linux System remotely via Telegram API
-# Requirements :  apt-get install -y python python-pip && pip install telepot , dig,mtr,nmap,whois ,a Telegram BOT
+# Requirements :  apt-get install -y python python-pip && pip install telepot
+# , dig,mtr,nmap,whois ,a Telegram BOT
 
-from pprint import pprint
-import telepot,time,os
+import os
+import time
+
+import telepot
+from telepot import loop as tel_loop
 
 # Telegram senders id
-authorized_senders = [SENDER-ID-LIST]
+SENDER_ID_LIST = None
+TG_BOT_TOKEN = None
+
+authorized_senders = [SENDER_ID_LIST]
 
 
 def handle(msg):
@@ -20,55 +27,52 @@ def handle(msg):
     f.close()
 
     if sender in authorized_senders:
+        args = text.split()
+        command = args[0]
 
-      args=text.split()
-
-      command = args[0]
-      if command == '/ping':
+        if command == '/ping':
             host = str(args[1])
-            output=os.popen("ping -c1 "+host).read()
+            output = os.popen("ping -c1 "+host).read()
             bot.sendMessage(chat_id, output)
 
-      if command == '/mtr':
+        if command == '/mtr':
             host = str(args[1])
             output=os.popen("mtr --report "+host).read()
             bot.sendMessage(chat_id, output)
 
-      if command == '/nmap':
+        if command == '/nmap':
             value = str(args[1])
             host = str(args[2])
-            output=os.popen("nmap -A "+value+" "+host).read()
+            output = os.popen("nmap -A "+value+" "+host).read()
             bot.sendMessage(chat_id, output)
 
-      if command == '/curl':
+        if command == '/curl':
             host = str(args[1])
-            output=os.popen("curl -Iv "+host).read()
+            output = os.popen("curl -Iv "+host).read()
             bot.sendMessage(chat_id, output)
 
-      if command == '/dig':
+        if command == '/dig':
             type = str(args[1])
             host = str(args[2])
-            output=os.popen("dig +short "+type+" "+host).read()
+            output = os.popen("dig +short "+type+" "+host).read()
             bot.sendMessage(chat_id, output)
 
-      if command == '/whois':
+        if command == '/whois':
             host = str(args[1])
-            output=os.popen("whois "+host).read()
+            output = os.popen("whois "+host).read()
             bot.sendMessage(chat_id, output)
 
-
-      if command == '/sysinfo':
-            output=os.popen("df -h && free -m && netstat -tunlp").read()
+        if command == '/sysinfo':
+            output = os.popen("df -h && free -m && netstat -tunlp").read()
             bot.sendMessage(chat_id, output)
 
-
-      if command == '/sh':
+        if command == '/sh':
             cmd = str(args[1])
-            output=os.popen(cmd).read()
+            output = os.popen(cmd).read()
             bot.sendMessage(chat_id, output)
 
-bot = telepot.Bot('TG-BOT-TOKEN')
-bot.message_loop(handle)
+bot = telepot.Bot(TG_BOT_TOKEN)
+tel_loop.MessageLoop(bot, handle=handle).run_as_thread()
 
 
 while 1:
