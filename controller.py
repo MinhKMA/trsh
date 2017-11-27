@@ -12,10 +12,8 @@ import telepot
 from telepot import loop as tel_loop
 
 # Telegram senders id
-SENDER_ID_LIST = None
-TG_BOT_TOKEN = None
 
-authorized_senders = [SENDER_ID_LIST]
+authorized_senders = ['SENDER-ID-LIST']
 
 
 def handle(msg):
@@ -23,7 +21,8 @@ def handle(msg):
     text = msg['text']
     sender = msg['from']['id']
     f = open('trsh.log', 'a')
-    f.write("Chat-id - "+str(chat_id)+" Text - "+str(text)+" Sender - "+str(sender)+"\n")
+    f.write("Chat-id - "+str(chat_id) +
+            " Text - "+str(text)+" Sender - "+str(sender)+"\n")
     f.close()
 
     if sender in authorized_senders:
@@ -67,7 +66,7 @@ def handle(msg):
             output = 'Sorry, we do not still support your command'
             bot.sendMessage(chat_id, output)
 
-bot = telepot.Bot(TG_BOT_TOKEN)
+bot = telepot.Bot('TG-BOT-TOKEN')
 tel_loop.MessageLoop(bot, handle=handle).run_as_thread()
 
 
