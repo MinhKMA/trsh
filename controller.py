@@ -13,7 +13,7 @@ from telepot import loop as tel_loop
 
 # Telegram senders id
 
-authorized_senders = ['SENDER-ID-LIST']
+authorized_senders = [SENDER-ID-LIST]
 
 
 def handle(msg):

@@ -3,7 +3,7 @@ echo "Downloading & Installing Packages.. \n"
 apt-get install -y python supervisor nmap dnsutils mtr python-pip && pip install telepot
 
 echo "Enter your Telegram BOT Token: "
-read -sr TG_BOT_TOKEN
+read TG_BOT_TOKEN
 
 
 sed -i s"/TG-BOT-TOKEN/$TG_BOT_TOKEN/" get-sender-id.py
@@ -12,7 +12,7 @@ echo "Trying to find out your Telegram sender-id..\n"
 python get-sender-id.py  | grep "'id'" | uniq -c | awk '{ print $3 }' | sed s'/,//'
 
 echo "Enter your Telegram Sender ID: "
-read -sr SENDER_ID
+read SENDER_ID
 
 sed -i s"/SENDER-ID-LIST/$SENDER_ID/" controller.py
 
