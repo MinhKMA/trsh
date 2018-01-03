@@ -79,4 +79,4 @@ tel_loop.MessageLoop(bot, handle=handle).run_as_thread()
 
 
 while 1:
-    time.sleep(10)
+    time.sleep(0.5)
