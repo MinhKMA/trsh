@@ -65,11 +65,11 @@ def handle(msg):
         elif command == "/install":
             package = str(args[1])
             os.system("apt-get -y install "+ package)
-            output = os.popen("dpkg-query -W "+ package").read().split()
-                if str(output[0]) == package:
-                    bot.sendMessage(chat_id, "install success")
-                else:
-                    bot.sendMessage(chat_id, "no packages found matching "+ package)
+            output = os.popen("dpkg-query -W "+ package).read().split()
+            if str(output[0]) == package:
+                bot.sendMessage(chat_id, "install success")
+            else:
+                bot.sendMessage(chat_id, "no packages found matching "+ package)
         else:
             output = 'Sorry, we do not still support your command'
             bot.sendMessage(chat_id, output)
